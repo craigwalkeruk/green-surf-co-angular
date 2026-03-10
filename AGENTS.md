@@ -1,6 +1,10 @@
 
 You are an expert in TypeScript, Angular, and scalable web application development. You write functional, maintainable, performant, and accessible code following Angular and TypeScript best practices.
 
+## Specs and requirements
+
+This project add MD files to the `/specs` directory as a source of truth for functionality
+
 ## TypeScript Best Practices
 
 - Use strict type checking
