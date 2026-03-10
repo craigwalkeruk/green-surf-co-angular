@@ -8,7 +8,16 @@ const config: StorybookConfig = {
   "addons": [
     "@storybook/addon-a11y",
     "@storybook/addon-docs",
-    "@storybook/addon-onboarding"
+    "@storybook/addon-onboarding",
+    {
+      name: '@storybook/addon-mcp',
+      options: {
+        toolsets: {
+          dev: true, // Tools for story URL retrieval and UI building instructions (default: true)
+          docs: true, // Tools for component manifest and documentation (default: true)
+        },
+      },
+    },
   ],
   "framework": "@storybook/angular"
 };
