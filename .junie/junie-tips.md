@@ -8,8 +8,8 @@ These tips are for using Junie effectively in JetBrains IDE projects, especially
   - TypeScript: `npx tsc --noEmit`
   - Project build: `mcp_JetBrainsIDE_build_project`
   - Storybook TypeScript: `npx tsc -p .storybook/tsconfig.json --noEmit`
-  - Storybook build: `npm run build-storybook` or IDE run config
-  - Runtime: Check browser console for errors (e.g., DOMTokenList issues)
+  - npm processes: Use `mcp_JetBrainsIDE_execute_run_configuration` for npm scripts (e.g., `storybook`, `start`, `test`).
+  - Runtime validation: Use `chromedevtools` to inspect the browser for both Storybook and the application. Check for console errors and verify UI changes.
 
 - **Persistent Watchers & Logs:**
   - Check for existing runs before launching new ones via tool windows.
@@ -28,4 +28,4 @@ These tips are for using Junie effectively in JetBrains IDE projects, especially
 - Prefer IDE MCP tools (e.g., `mcp_JetBrainsIDE_*`) over raw `bash` for project-aware operations.
 - Use `search_replace` or `mcp_JetBrainsIDE_replace_text_in_file` for edits when possible.
 
-**Last Updated: 2026-03-10**
+**Last Updated: 2026-03-11**

@@ -9,10 +9,16 @@
         "enabled": true
       },
       "storybook-mcp": {
-        "type": "http",
-        "url": "http://localhost:6006/mcp"
+        "type": "com.intellij.ml.llm.matterhorn.core.mcp.McpServerConfiguration.McpServerUrl",
+        "name": "storybook-mcp",
+        "url": "http://localhost:6006/mcp",
+        "headers": {},
+        "sourcePath": "/Users/craig.walker/WebstormProjects/poc-build-angular-with-ai/green-surf-co/.junie/mcp/mcp.json",
+        "enabled": true
       },
       "JetBrains IDE": {
+        "type": "com.intellij.ml.llm.matterhorn.core.mcp.McpServerConfiguration.McpServerCommand",
+        "name": "JetBrains IDE",
         "command": "/Users/craig.walker/Applications/WebStorm.app/Contents/jbr/Contents/Home/bin/java",
         "args": [
           "-classpath",
@@ -20,25 +26,60 @@
           "com.intellij.mcpserver.stdio.McpStdioRunnerKt"
         ],
         "env": {
-          "IJ_MCP_SERVER_PORT": "64342"
+          "variables": {
+            "IJ_MCP_SERVER_PORT": "64342"
+          }
         },
-        "type": "stdio"
+        "sourcePath": "/Users/craig.walker/WebstormProjects/poc-build-angular-with-ai/green-surf-co/.junie/mcp/mcp.json",
+        "enabled": true
       },
       "angular-cli": {
+        "type": "com.intellij.ml.llm.matterhorn.core.mcp.McpServerConfiguration.McpServerCommand",
+        "name": "angular-cli",
         "command": "npx",
-        "args": ["-y", "@angular/cli", "mcp"]
+        "args": ["-y", "@angular/cli", "mcp"],
+        "env": {
+          "variables": {}
+        },
+        "sourcePath": "/Users/craig.walker/WebstormProjects/poc-build-angular-with-ai/green-surf-co/.junie/mcp/mcp.json",
+        "enabled": true
       },
       "puppeteer": {
+        "type": "com.intellij.ml.llm.matterhorn.core.mcp.McpServerConfiguration.McpServerCommand",
+        "name": "puppeteer",
         "command": "npx",
-        "args": ["-y", "@modelcontextprotocol/server-puppeteer"]
+        "args": ["-y", "@modelcontextprotocol/server-puppeteer"],
+        "env": {
+          "variables": {}
+        },
+        "sourcePath": "/Users/craig.walker/WebstormProjects/poc-build-angular-with-ai/green-surf-co/.junie/mcp/mcp.json",
+        "enabled": true
       },
       "@21st-dev/magic": {
+        "type": "com.intellij.ml.llm.matterhorn.core.mcp.McpServerConfiguration.McpServerCommand",
+        "name": "@21st-dev/magic",
         "command": "npx",
         "args": [
           "-y",
           "@21st-dev/magic@latest",
           "API_KEY=\"f2bb8965ab68d61b37b95e4d36a75db0178130abb70671ba38f565bb0dbb41ca\""
-        ]
+        ],
+        "env": {
+          "variables": {}
+        },
+        "sourcePath": "/Users/craig.walker/WebstormProjects/poc-build-angular-with-ai/green-surf-co/.junie/mcp/mcp.json",
+        "enabled": true
+      },
+      "chrome-devtools": {
+        "type": "com.intellij.ml.llm.matterhorn.core.mcp.McpServerConfiguration.McpServerCommand",
+        "name": "chrome-devtools",
+        "command": "npx",
+        "args": ["-y", "chrome-devtools-mcp@latest", "--autoConnect", "--headless"],
+        "env": {
+          "variables": {}
+        },
+        "sourcePath": "/Users/craig.walker/WebstormProjects/poc-build-angular-with-ai/green-surf-co/.junie/mcp/mcp.json",
+        "enabled": true
       }
     }
 }
