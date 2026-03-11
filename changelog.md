@@ -14,6 +14,15 @@ and this project adheres to [Calendar Versioning](https://calver.org/) (CalVer).
 - Modernized `HeaderComponent` and `ButtonComponent` to use Angular signals and `ChangeDetectionStrategy.OnPush` (`acdf550`) - improves performance with fine-grained reactivity.
 - Updated Angular configurations (`f156e8c`) - optimizes build and development settings.
 
+### Added
+- Six color variants support in `ButtonComponent` (primary, secondary, success, warning, danger, neutral) and corresponding stories.
+
+### Changed
+- `ButtonComponent` styles refactored to use `class-variance-authority` (cva) – gold standard for Tailwind variant management, improving DX and Storybook docs readability.
+
+### Fixed
+- Figma design links in all `Button` stories (`src/stories/button.stories.ts`).
+
 ## 2026-03-10 Evening
 
 ### Added

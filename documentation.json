@@ -93,7 +93,7 @@
         },
         {
             "name": "ButtonComponent",
-            "id": "component-ButtonComponent-315ffa1a0dd4d95f39a0e17ae8e48c905ca46c13dee8e737678fdc7fad6a853bf3f8902a2465d1317b780e417a701d5437e04887c43c7a550949f22e89f65dbc",
+            "id": "component-ButtonComponent-3725aba0d60183c7ef8c762724a4e4dc125282e440c75380a789a897f99ba94e107e28118ad3eea93e16ee280a8e2dc2babb100e7f8f0c7bd399736495bffdf0",
             "file": "src/stories/button.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -104,11 +104,23 @@
             "selector": "storybook-button",
             "styleUrls": [],
             "styles": [],
-            "template": "<button\n  type=\"button\"\n  [class]=\"classes()\"\n  (click)=\"onClick.emit()\"\n>\n  {{ label() }}\n</button>\n",
+            "template": "<button\n  type=\"button\"\n  [disabled]=\"disabled()\"\n  [attr.data-disabled]=\"disabled() ? 'true' : null\"\n  [class]=\"classes()\"\n  (click)=\"onClick.emit()\"\n>\n  {{ label() }}\n</button>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
             "inputsClass": [
+                {
+                    "name": "disabled",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 52,
+                    "required": false
+                },
                 {
                     "name": "label",
                     "deprecated": false,
@@ -117,20 +129,8 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 22,
+                    "line": 51,
                     "required": true
-                },
-                {
-                    "name": "primary",
-                    "defaultValue": "false",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "boolean",
-                    "indexKey": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 20,
-                    "required": false
                 },
                 {
                     "name": "size",
@@ -141,7 +141,19 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 21,
+                    "line": 50,
+                    "required": false
+                },
+                {
+                    "name": "variant",
+                    "defaultValue": "'secondary'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "\"primary\" | \"secondary\" | \"success\" | \"warning\" | \"danger\" | \"neutral\"",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 49,
                     "required": false
                 }
             ],
@@ -153,21 +165,21 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 23,
+                    "line": 53,
                     "required": false
                 }
             ],
             "propertiesClass": [
                 {
                     "name": "classes",
-                    "defaultValue": "computed(() => {\n    const cls: string[] = [\n      'inline-block cursor-pointer border-0 rounded-full font-bold leading-none font-inter shadow-sm transition-colors'\n    ];\n    if (this.primary()) {\n      cls.push('bg-primary-500', 'text-white');\n    } else {\n      cls.push('bg-transparent', 'text-gray-900', 'ring-1', 'ring-inset', 'ring-black/15', 'shadow-none');\n    }\n    const sz = this.size();\n    if (sz === 'small') {\n      cls.push('px-4', 'py-[11px]', 'text-xs');\n    } else if (sz === 'medium') {\n      cls.push('px-5', 'py-[11px]', 'text-sm');\n    } else if (sz === 'large') {\n      cls.push('px-6', 'py-3', 'text-base');\n    }\n    return cls.join(' ');\n  })",
+                    "defaultValue": "computed(() => buttonVariants({\n    variant: this.variant(),\n    size: this.size()\n  }))",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "unknown",
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 24
+                    "line": 54
                 }
             ],
             "methodsClass": [],
@@ -185,7 +197,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';\nimport { CommonModule } from '@angular/common';\n\n@Component({\n  selector: 'storybook-button',\n  standalone: true,\n  imports: [CommonModule],\n  template: `\n    <button\n      type=\"button\"\n      [class]=\"classes()\"\n      (click)=\"onClick.emit()\"\n    >\n      {{ label() }}\n    </button>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush\n})\nexport class ButtonComponent {\n  primary = input<boolean>(false);\n  size = input<'small' | 'medium' | 'large'>('medium');\n  label = input.required<string>();\n  onClick = output();\n  classes = computed(() => {\n    const cls: string[] = [\n      'inline-block cursor-pointer border-0 rounded-full font-bold leading-none font-inter shadow-sm transition-colors'\n    ];\n    if (this.primary()) {\n      cls.push('bg-primary-500', 'text-white');\n    } else {\n      cls.push('bg-transparent', 'text-gray-900', 'ring-1', 'ring-inset', 'ring-black/15', 'shadow-none');\n    }\n    const sz = this.size();\n    if (sz === 'small') {\n      cls.push('px-4', 'py-[11px]', 'text-xs');\n    } else if (sz === 'medium') {\n      cls.push('px-5', 'py-[11px]', 'text-sm');\n    } else if (sz === 'large') {\n      cls.push('px-6', 'py-3', 'text-base');\n    }\n    return cls.join(' ');\n  });\n}\n",
+            "sourceCode": "import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { cva } from 'class-variance-authority';\n\nconst buttonVariants = cva(\n  'inline-flex items-center justify-center whitespace-nowrap cursor-pointer rounded-md font-medium leading-none font-[\\\"Public Sans\\\"] shadow-sm transition-all duration-200 capitalize focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 active:scale-[0.98]',\n  {\n    variants: {\n      variant: {\n        primary: 'bg-primary-500 text-white shadow-[0px_2px_6px_0px_rgba(115,103,240,0.3)] hover:bg-primary-600 hover:shadow-[0px_4px_8px_0px_rgba(115,103,240,0.4)] focus-visible:ring-primary-500 data-[disabled=true]:bg-primary-400 data-[disabled=true]:text-white/70 data-[disabled=true]:shadow-sm data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-60',\n        secondary: 'bg-white border border-neutral-200 text-neutral-900 hover:bg-neutral-50 hover:border-neutral-300 focus-visible:ring-neutral-500 data-[disabled=true]:bg-neutral-100 data-[disabled=true]:border-neutral-300 data-[disabled=true]:text-neutral-500 data-[disabled=true]:shadow-sm data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-60',\n        success: 'bg-emerald-500 text-white shadow-[0px_2px_6px_0px_rgba(16,185,129,0.3)] hover:bg-emerald-600 hover:shadow-[0px_4px_8px_0px_rgba(16,185,129,0.4)] focus-visible:ring-emerald-500 data-[disabled=true]:bg-emerald-400 data-[disabled=true]:text-white/70 data-[disabled=true]:shadow-sm data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-60',\n        warning: 'bg-amber-500 text-white shadow-[0px_2px_6px_0px_rgba(245,158,11,0.3)] hover:bg-amber-600 hover:shadow-[0px_4px_8px_0px_rgba(245,158,11,0.4)] focus-visible:ring-amber-500 data-[disabled=true]:bg-amber-400 data-[disabled=true]:text-white/70 data-[disabled=true]:shadow-sm data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-60',\n        danger: 'bg-rose-500 text-white shadow-[0px_2px_6px_0px_rgba(244,63,94,0.3)] hover:bg-rose-600 hover:shadow-[0px_4px_8px_0px_rgba(244,63,94,0.4)] focus-visible:ring-rose-500 data-[disabled=true]:bg-rose-400 data-[disabled=true]:text-white/70 data-[disabled=true]:shadow-sm data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-60',\n        neutral: 'bg-neutral-600 text-white shadow-[0px_2px_6px_0px_rgba(82,82,82,0.3)] hover:bg-neutral-700 hover:shadow-[0px_4px_8px_0px_rgba(82,82,82,0.4)] focus-visible:ring-neutral-600 data-[disabled=true]:bg-neutral-500 data-[disabled=true]:text-white/70 data-[disabled=true]:shadow-sm data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-60'\n      },\n      size: {\n        small: 'px-4 py-1.5 text-xs h-8',\n        medium: 'px-5 py-2 text-[15px] leading-[22px] h-10',\n        large: 'px-6 py-3 text-base h-12'\n      }\n    },\n    defaultVariants: {\n      variant: 'secondary',\n      size: 'medium'\n    }\n  }\n);\n\n@Component({\n  selector: 'storybook-button',\n  standalone: true,\n  imports: [CommonModule],\n  template: `\n    <button\n      type=\"button\"\n      [disabled]=\"disabled()\"\n      [attr.data-disabled]=\"disabled() ? 'true' : null\"\n      [class]=\"classes()\"\n      (click)=\"onClick.emit()\"\n    >\n      {{ label() }}\n    </button>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush\n})\nexport class ButtonComponent {\n  // Six color variants per design: primary, secondary, success, warning, danger, neutral\n  variant = input<'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'neutral'>('secondary');\n  size = input<'small' | 'medium' | 'large'>('medium');\n  label = input.required<string>();\n  disabled = input<boolean>(false);\n  onClick = output();\n  classes = computed(() => buttonVariants({\n    variant: this.variant(),\n    size: this.size()\n  }));\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -430,6 +442,36 @@
                 "defaultValue": "{\n  providers: [\n    provideBrowserGlobalErrorListeners(),\n    provideRouter(routes)\n  ]\n}"
             },
             {
+                "name": "buttonVariants",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/button.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "unknown",
+                "defaultValue": "cva(\n  'inline-flex items-center justify-center whitespace-nowrap cursor-pointer rounded-md font-medium leading-none font-[\\\"Public Sans\\\"] shadow-sm transition-all duration-200 capitalize focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 active:scale-[0.98]',\n  {\n    variants: {\n      variant: {\n        primary: 'bg-primary-500 text-white shadow-[0px_2px_6px_0px_rgba(115,103,240,0.3)] hover:bg-primary-600 hover:shadow-[0px_4px_8px_0px_rgba(115,103,240,0.4)] focus-visible:ring-primary-500 data-[disabled=true]:bg-primary-400 data-[disabled=true]:text-white/70 data-[disabled=true]:shadow-sm data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-60',\n        secondary: 'bg-white border border-neutral-200 text-neutral-900 hover:bg-neutral-50 hover:border-neutral-300 focus-visible:ring-neutral-500 data-[disabled=true]:bg-neutral-100 data-[disabled=true]:border-neutral-300 data-[disabled=true]:text-neutral-500 data-[disabled=true]:shadow-sm data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-60',\n        success: 'bg-emerald-500 text-white shadow-[0px_2px_6px_0px_rgba(16,185,129,0.3)] hover:bg-emerald-600 hover:shadow-[0px_4px_8px_0px_rgba(16,185,129,0.4)] focus-visible:ring-emerald-500 data-[disabled=true]:bg-emerald-400 data-[disabled=true]:text-white/70 data-[disabled=true]:shadow-sm data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-60',\n        warning: 'bg-amber-500 text-white shadow-[0px_2px_6px_0px_rgba(245,158,11,0.3)] hover:bg-amber-600 hover:shadow-[0px_4px_8px_0px_rgba(245,158,11,0.4)] focus-visible:ring-amber-500 data-[disabled=true]:bg-amber-400 data-[disabled=true]:text-white/70 data-[disabled=true]:shadow-sm data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-60',\n        danger: 'bg-rose-500 text-white shadow-[0px_2px_6px_0px_rgba(244,63,94,0.3)] hover:bg-rose-600 hover:shadow-[0px_4px_8px_0px_rgba(244,63,94,0.4)] focus-visible:ring-rose-500 data-[disabled=true]:bg-rose-400 data-[disabled=true]:text-white/70 data-[disabled=true]:shadow-sm data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-60',\n        neutral: 'bg-neutral-600 text-white shadow-[0px_2px_6px_0px_rgba(82,82,82,0.3)] hover:bg-neutral-700 hover:shadow-[0px_4px_8px_0px_rgba(82,82,82,0.4)] focus-visible:ring-neutral-600 data-[disabled=true]:bg-neutral-500 data-[disabled=true]:text-white/70 data-[disabled=true]:shadow-sm data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-60'\n      },\n      size: {\n        small: 'px-4 py-1.5 text-xs h-8',\n        medium: 'px-5 py-2 text-[15px] leading-[22px] h-10',\n        large: 'px-6 py-3 text-base h-12'\n      }\n    },\n    defaultVariants: {\n      variant: 'secondary',\n      size: 'medium'\n    }\n  }\n)"
+            },
+            {
+                "name": "ColorVariants",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  render: () => ({\n    template: `\n      <div class=\"flex flex-col gap-6 p-8 border rounded-md bg-neutral-50\">\n        <div class=\"flex gap-4 items-center flex-wrap\">\n          <storybook-button variant=\"primary\" label=\"Primary\"></storybook-button>\n          <storybook-button variant=\"secondary\" label=\"Secondary\"></storybook-button>\n          <storybook-button variant=\"success\" label=\"Success\"></storybook-button>\n          <storybook-button variant=\"warning\" label=\"Warning\"></storybook-button>\n          <storybook-button variant=\"danger\" label=\"Danger\"></storybook-button>\n          <storybook-button variant=\"neutral\" label=\"Neutral\"></storybook-button>\n        </div>\n        <div class=\"flex gap-4 items-center flex-wrap\">\n          <storybook-button variant=\"primary\" disabled=\"true\" label=\"Primary Disabled\"></storybook-button>\n          <storybook-button variant=\"secondary\" disabled=\"true\" label=\"Secondary Disabled\"></storybook-button>\n          <storybook-button variant=\"success\" disabled=\"true\" label=\"Success Disabled\"></storybook-button>\n          <storybook-button variant=\"warning\" disabled=\"true\" label=\"Warning Disabled\"></storybook-button>\n          <storybook-button variant=\"danger\" disabled=\"true\" label=\"Danger Disabled\"></storybook-button>\n          <storybook-button variant=\"neutral\" disabled=\"true\" label=\"Neutral Disabled\"></storybook-button>\n        </div>\n      </div>\n    `,\n  }),\n  parameters: {\n    design: {\n      type: 'figma',\n      url: 'http://localhost:6006/?path=/story/example-button--color-variants',\n    },\n  },\n}"
+            },
+            {
+                "name": "Disabled",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    variant: 'primary',\n    disabled: true,\n    label: 'Button',\n  },\n}"
+            },
+            {
                 "name": "Large",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -487,7 +529,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<ButtonComponent>",
-                "defaultValue": "{\n  title: 'Example/Button',\n  component: ButtonComponent,\n  tags: ['autodocs'],\n  // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#story-args\n  args: { onClick: fn() },\n}"
+                "defaultValue": "{\n  title: 'Example/Button',\n  component: ButtonComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    label: { control: 'text' },\n    variant: {\n      control: 'select',\n      options: ['primary', 'secondary', 'success', 'warning', 'danger', 'neutral']\n    },\n    size: {\n      control: 'select',\n      options: ['small', 'medium', 'large']\n    },\n    disabled: { control: 'boolean' },\n    onClick: { action: 'clicked' }\n  },\n  // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#story-args\n  args: {\n    variant: 'secondary',\n    size: 'medium',\n    label: 'Button',\n    disabled: false,\n    onClick: fn(),\n  },\n}"
             },
             {
                 "name": "meta",
@@ -517,7 +559,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: {\n    primary: true,\n    label: 'Button',\n  },\n}"
+                "defaultValue": "{\n  args: {\n    variant: 'primary',\n    label: 'Button',\n  },\n  parameters: {\n    design: {\n      type: 'figma',\n      url: 'https://www.figma.com/design/VzZx5Jpt65qkq1jlau2oFv/POC-Build-from-scratch-in-WebStorm?node-id=324-32923',\n    },\n  },\n}"
             },
             {
                 "name": "routes",
@@ -537,7 +579,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: {\n    label: 'Button',\n  },\n}"
+                "defaultValue": "{\n  args: {\n    variant: 'secondary',\n    label: 'Button',\n  },\n}"
             },
             {
                 "name": "Small",
@@ -600,7 +642,39 @@
                     "defaultValue": "{\n  providers: [\n    provideBrowserGlobalErrorListeners(),\n    provideRouter(routes)\n  ]\n}"
                 }
             ],
+            "src/stories/button.component.ts": [
+                {
+                    "name": "buttonVariants",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/button.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "defaultValue": "cva(\n  'inline-flex items-center justify-center whitespace-nowrap cursor-pointer rounded-md font-medium leading-none font-[\\\"Public Sans\\\"] shadow-sm transition-all duration-200 capitalize focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 active:scale-[0.98]',\n  {\n    variants: {\n      variant: {\n        primary: 'bg-primary-500 text-white shadow-[0px_2px_6px_0px_rgba(115,103,240,0.3)] hover:bg-primary-600 hover:shadow-[0px_4px_8px_0px_rgba(115,103,240,0.4)] focus-visible:ring-primary-500 data-[disabled=true]:bg-primary-400 data-[disabled=true]:text-white/70 data-[disabled=true]:shadow-sm data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-60',\n        secondary: 'bg-white border border-neutral-200 text-neutral-900 hover:bg-neutral-50 hover:border-neutral-300 focus-visible:ring-neutral-500 data-[disabled=true]:bg-neutral-100 data-[disabled=true]:border-neutral-300 data-[disabled=true]:text-neutral-500 data-[disabled=true]:shadow-sm data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-60',\n        success: 'bg-emerald-500 text-white shadow-[0px_2px_6px_0px_rgba(16,185,129,0.3)] hover:bg-emerald-600 hover:shadow-[0px_4px_8px_0px_rgba(16,185,129,0.4)] focus-visible:ring-emerald-500 data-[disabled=true]:bg-emerald-400 data-[disabled=true]:text-white/70 data-[disabled=true]:shadow-sm data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-60',\n        warning: 'bg-amber-500 text-white shadow-[0px_2px_6px_0px_rgba(245,158,11,0.3)] hover:bg-amber-600 hover:shadow-[0px_4px_8px_0px_rgba(245,158,11,0.4)] focus-visible:ring-amber-500 data-[disabled=true]:bg-amber-400 data-[disabled=true]:text-white/70 data-[disabled=true]:shadow-sm data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-60',\n        danger: 'bg-rose-500 text-white shadow-[0px_2px_6px_0px_rgba(244,63,94,0.3)] hover:bg-rose-600 hover:shadow-[0px_4px_8px_0px_rgba(244,63,94,0.4)] focus-visible:ring-rose-500 data-[disabled=true]:bg-rose-400 data-[disabled=true]:text-white/70 data-[disabled=true]:shadow-sm data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-60',\n        neutral: 'bg-neutral-600 text-white shadow-[0px_2px_6px_0px_rgba(82,82,82,0.3)] hover:bg-neutral-700 hover:shadow-[0px_4px_8px_0px_rgba(82,82,82,0.4)] focus-visible:ring-neutral-600 data-[disabled=true]:bg-neutral-500 data-[disabled=true]:text-white/70 data-[disabled=true]:shadow-sm data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-60'\n      },\n      size: {\n        small: 'px-4 py-1.5 text-xs h-8',\n        medium: 'px-5 py-2 text-[15px] leading-[22px] h-10',\n        large: 'px-6 py-3 text-base h-12'\n      }\n    },\n    defaultVariants: {\n      variant: 'secondary',\n      size: 'medium'\n    }\n  }\n)"
+                }
+            ],
             "src/stories/button.stories.ts": [
+                {
+                    "name": "ColorVariants",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  render: () => ({\n    template: `\n      <div class=\"flex flex-col gap-6 p-8 border rounded-md bg-neutral-50\">\n        <div class=\"flex gap-4 items-center flex-wrap\">\n          <storybook-button variant=\"primary\" label=\"Primary\"></storybook-button>\n          <storybook-button variant=\"secondary\" label=\"Secondary\"></storybook-button>\n          <storybook-button variant=\"success\" label=\"Success\"></storybook-button>\n          <storybook-button variant=\"warning\" label=\"Warning\"></storybook-button>\n          <storybook-button variant=\"danger\" label=\"Danger\"></storybook-button>\n          <storybook-button variant=\"neutral\" label=\"Neutral\"></storybook-button>\n        </div>\n        <div class=\"flex gap-4 items-center flex-wrap\">\n          <storybook-button variant=\"primary\" disabled=\"true\" label=\"Primary Disabled\"></storybook-button>\n          <storybook-button variant=\"secondary\" disabled=\"true\" label=\"Secondary Disabled\"></storybook-button>\n          <storybook-button variant=\"success\" disabled=\"true\" label=\"Success Disabled\"></storybook-button>\n          <storybook-button variant=\"warning\" disabled=\"true\" label=\"Warning Disabled\"></storybook-button>\n          <storybook-button variant=\"danger\" disabled=\"true\" label=\"Danger Disabled\"></storybook-button>\n          <storybook-button variant=\"neutral\" disabled=\"true\" label=\"Neutral Disabled\"></storybook-button>\n        </div>\n      </div>\n    `,\n  }),\n  parameters: {\n    design: {\n      type: 'figma',\n      url: 'http://localhost:6006/?path=/story/example-button--color-variants',\n    },\n  },\n}"
+                },
+                {
+                    "name": "Disabled",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    variant: 'primary',\n    disabled: true,\n    label: 'Button',\n  },\n}"
+                },
                 {
                     "name": "Large",
                     "ctype": "miscellaneous",
@@ -619,7 +693,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<ButtonComponent>",
-                    "defaultValue": "{\n  title: 'Example/Button',\n  component: ButtonComponent,\n  tags: ['autodocs'],\n  // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#story-args\n  args: { onClick: fn() },\n}"
+                    "defaultValue": "{\n  title: 'Example/Button',\n  component: ButtonComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    label: { control: 'text' },\n    variant: {\n      control: 'select',\n      options: ['primary', 'secondary', 'success', 'warning', 'danger', 'neutral']\n    },\n    size: {\n      control: 'select',\n      options: ['small', 'medium', 'large']\n    },\n    disabled: { control: 'boolean' },\n    onClick: { action: 'clicked' }\n  },\n  // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#story-args\n  args: {\n    variant: 'secondary',\n    size: 'medium',\n    label: 'Button',\n    disabled: false,\n    onClick: fn(),\n  },\n}"
                 },
                 {
                     "name": "Primary",
@@ -629,7 +703,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  args: {\n    primary: true,\n    label: 'Button',\n  },\n}"
+                    "defaultValue": "{\n  args: {\n    variant: 'primary',\n    label: 'Button',\n  },\n  parameters: {\n    design: {\n      type: 'figma',\n      url: 'https://www.figma.com/design/VzZx5Jpt65qkq1jlau2oFv/POC-Build-from-scratch-in-WebStorm?node-id=324-32923',\n    },\n  },\n}"
                 },
                 {
                     "name": "Secondary",
@@ -639,7 +713,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  args: {\n    label: 'Button',\n  },\n}"
+                    "defaultValue": "{\n  args: {\n    variant: 'secondary',\n    label: 'Button',\n  },\n}"
                 },
                 {
                     "name": "Small",
@@ -817,7 +891,37 @@
                 "linktype": "component",
                 "name": "ButtonComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/6",
+                "coverageCount": "0/7",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/button.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "buttonVariants",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "ColorVariants",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Disabled",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {

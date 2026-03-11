@@ -9,6 +9,7 @@ const config: StorybookConfig = {
     "@storybook/addon-a11y",
     "@storybook/addon-docs",
     "@storybook/addon-onboarding",
+    "@storybook/addon-designs",
     {
       name: '@storybook/addon-mcp',
       options: {
