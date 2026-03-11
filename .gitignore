@@ -43,6 +43,9 @@ __screenshots__/
 .DS_Store
 Thumbs.db
 
+# Documentation
+documentation.json
+
 *storybook.log
 storybook-static
 /temp/
