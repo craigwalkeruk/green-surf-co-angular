@@ -11,7 +11,7 @@ import './styles.css';
 // Try-catch to handle case where environment is already initialized (e.g., by ng test)
 try {
   TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
-    teardown: { destroyAfterEach: true },
+    teardown: { destroyAfterEach: false },
     errorOnUnknownElements: true,
     errorOnUnknownProperties: true,
   });

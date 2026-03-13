@@ -5,7 +5,7 @@
 @theme {
   /* Figma Primary Palette (approximated) */
   --color-primary-100: #E3E1FC;
-  --color-primary-500: #7367F0;
+  --color-primary-500: #7165EC;
   --color-primary-900: #564DB4;
   --color-secondary-100: #E6E6E9;
 
@@ -70,4 +70,9 @@
   --shadow-info-md: 0px 4px 8px 0px rgba(var(--color-info-500-rgb), 0.4);
   --shadow-success-sm: 0px 2px 6px 0px rgba(var(--color-success-500-rgb), 0.3);
   --shadow-success-md: 0px 4px 8px 0px rgba(var(--color-success-500-rgb), 0.4);
+
+  /* Border radius */
+  --border-radius-sm: 5px;
+  --border-radius-md: 5px;
+  --border-radius-lg: 8px;
 }

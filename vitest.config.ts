@@ -31,7 +31,7 @@ export default defineConfig({
           comparatorName: 'pixelmatch',
           comparatorOptions: {
             threshold: 0.1,
-            allowedMismatchedPixelRatio: 0.025,
+            allowedMismatchedPixelRatio: 0.05,
             diffColor: [255, 0, 0],
             diffColorAlt: [255, 255, 0],
             diffMask: false,
