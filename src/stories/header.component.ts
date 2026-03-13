@@ -31,25 +31,25 @@ import type { User } from './user';
         <span class="welcome">
           Welcome, <b>{{ user()?.name }}</b>!
         </span>
-        <storybook-button
+        <gsc-button
           size="small"
           (onClick)="handleLogout()"
           label="Log out"
-        ></storybook-button>
+        ></gsc-button>
       } @else {
-        <storybook-button
+        <gsc-button
           size="small"
           class="margin-left"
           (onClick)="handleLogin()"
           label="Log in"
-        ></storybook-button>
-        <storybook-button
+        ></gsc-button>
+        <gsc-button
           size="small"
           [primary]="true"
           class="margin-left"
           (onClick)="handleCreateAccount()"
           label="Sign up"
-        ></storybook-button>
+        ></gsc-button>
       }
     </div>
   </div>

@@ -63,6 +63,7 @@ export const Secondary: Story = {
 
 export const Large: Story = {
   args: {
+    variant: 'primary',
     size: 'large',
     label: 'Button',
   },
@@ -76,6 +77,7 @@ export const Large: Story = {
 
 export const Small: Story = {
   args: {
+    variant: 'primary',
     size: 'small',
     label: 'Button',
   },
@@ -101,25 +103,43 @@ export const Disabled: Story = {
   },
 };
 
+export const SizeComparison: Story = {
+  render: () => ({
+    template: `
+      <div class="flex gap-4 items-center p-8">
+        <gsc-button size="large" label="Button" variant="primary"></gsc-button>
+        <gsc-button size="medium" label="Button" variant="primary"></gsc-button>
+        <gsc-button size="small" label="Button" variant="primary"></gsc-button>
+      </div>
+    `,
+  }),
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/VzZx5Jpt65qkq1jlau2oFv/POC-Build-from-scratch-in-WebStorm?node-id=324-11174',
+    },
+  },
+};
+
 export const ColorVariants: Story = {
   render: () => ({
     template: `
       <div class="flex flex-col gap-6 p-8 border rounded-md bg-neutral-50">
         <div class="flex gap-4 items-center flex-wrap">
-          <storybook-button variant="primary" label="Primary"></storybook-button>
-          <storybook-button variant="secondary" label="Secondary"></storybook-button>
-          <storybook-button variant="error" label="Error"></storybook-button>
-          <storybook-button variant="warning" label="Warning"></storybook-button>
-          <storybook-button variant="info" label="Info"></storybook-button>
-          <storybook-button variant="success" label="Success"></storybook-button>
+          <gsc-button variant="primary" label="Primary"></gsc-button>
+          <gsc-button variant="secondary" label="Secondary"></gsc-button>
+          <gsc-button variant="error" label="Error"></gsc-button>
+          <gsc-button variant="warning" label="Warning"></gsc-button>
+          <gsc-button variant="info" label="Info"></gsc-button>
+          <gsc-button variant="success" label="Success"></gsc-button>
         </div>
         <div class="flex gap-4 items-center flex-wrap">
-          <storybook-button variant="primary" [disabled]="true" label="Primary Disabled"></storybook-button>
-          <storybook-button variant="secondary" [disabled]="true" label="Secondary Disabled"></storybook-button>
-          <storybook-button variant="error" [disabled]="true" label="Error Disabled"></storybook-button>
-          <storybook-button variant="warning" [disabled]="true" label="Warning Disabled"></storybook-button>
-          <storybook-button variant="info" [disabled]="true" label="Info Disabled"></storybook-button>
-          <storybook-button variant="success" [disabled]="true" label="Success Disabled"></storybook-button>
+          <gsc-button variant="primary" [disabled]="true" label="Primary Disabled"></gsc-button>
+          <gsc-button variant="secondary" [disabled]="true" label="Secondary Disabled"></gsc-button>
+          <gsc-button variant="error" [disabled]="true" label="Error Disabled"></gsc-button>
+          <gsc-button variant="warning" [disabled]="true" label="Warning Disabled"></gsc-button>
+          <gsc-button variant="info" [disabled]="true" label="Info Disabled"></gsc-button>
+          <gsc-button variant="success" [disabled]="true" label="Success Disabled"></gsc-button>
         </div>
       </div>
     `,

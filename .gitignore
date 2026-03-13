@@ -49,3 +49,5 @@ documentation.json
 *storybook.log
 storybook-static
 /temp/
+/.vitest-attachments/
+/html/
