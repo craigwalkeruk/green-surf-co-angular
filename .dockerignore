@@ -1,0 +1,11 @@
+node_modules
+dist
+.angular
+.storybook-out
+html
+coverage
+.git
+.idea
+*.log
+.DS_Store
+src/stories/__screenshots__/button.component.spec.ts/*.png

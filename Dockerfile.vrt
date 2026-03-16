@@ -1,0 +1,22 @@
+FROM mcr.microsoft.com/playwright:v1.58.2-noble
+
+WORKDIR /app
+
+# Install Xvfb for virtual display
+RUN apt-get update && apt-get install -y xvfb && rm -rf /var/lib/apt/lists/*
+
+# Disable output buffering
+ENV NPM_CONFIG_PROGRESS=false
+ENV FORCE_COLOR=1
+
+# Copy package files and npm config
+COPY package*.json .npmrc ./
+
+# Install dependencies
+RUN npm i
+
+# Copy source files
+COPY . .
+
+# Run tests with virtual display (non-headless, 2x DPI for retina-quality screenshots)
+CMD ["/bin/bash", "-c", "xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24 -dpi 192' npm run test-vrt-docker-run"]

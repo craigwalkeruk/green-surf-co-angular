@@ -50,3 +50,5 @@ storybook-static
 /temp/
 /.vitest-attachments/
 /html/
+/html
+/.vitest-attachments

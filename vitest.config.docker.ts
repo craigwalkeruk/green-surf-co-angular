@@ -22,10 +22,17 @@ export default defineConfig({
     css: true,
     include: ['src/stories/button.component.spec.ts'],
     setupFiles: ['./src/test-setup.ts'],
-    watch: true,
+    watch: false,
     browser: {
       enabled: true,
-      provider: playwright(),
+      headless: true,
+      provider: playwright({
+        contextOptions: {
+          deviceScaleFactor: 1.5,
+          viewport: { width: 1920, height: 1080 },
+        },
+      }),
+      ui: false,
       instances: [{ browser: 'chromium' }],
       commands: { compareWithFigma },
       screenshotFailures: true,
@@ -42,6 +49,6 @@ export default defineConfig({
         },
       },
     },
-    reporters: ['verbose'],
+    reporters: ['verbose', 'html'],
   },
 });
