@@ -72,7 +72,7 @@
   --shadow-success-md: 0px 4px 8px 0px rgba(var(--color-success-500-rgb), 0.4);
 
   /* Border radius */
-  --border-radius-sm: 5px;
-  --border-radius-md: 5px;
+  --border-radius-sm: 4px;
+  --border-radius-md: 6px;
   --border-radius-lg: 8px;
 }

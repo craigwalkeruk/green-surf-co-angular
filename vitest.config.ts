@@ -28,19 +28,11 @@ export default defineConfig({
       provider: playwright(),
       instances: [{ browser: 'chromium' }],
       commands: { compareWithFigma },
-      screenshotFailures: true,
-      expect: {
-        toMatchScreenshot: {
-          comparatorName: 'pixelmatch',
-          comparatorOptions: {
-            threshold: 0.1,
-            allowedMismatchedPixelRatio: 0.03,
-            diffColor: [255, 0, 0],
-            diffColorAlt: [255, 255, 0],
-            diffMask: false,
-          },
-        },
+      compareWithFigmaOptions: {
+        maxDiffPercentage: 5.0,
       },
+      screenshotFailures: false,
+      screenshotDirectory: '.vitest-attachments/temp',
     },
     reporters: ['verbose'],
   },

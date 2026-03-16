@@ -23,25 +23,46 @@ export interface CompareWithFigmaResult {
  * - Handles size mismatches by padding and still generating diff
  * - Always logs diff percentage and generates diff image
  * - Outputs diffs to .vitest-attachment directory
+ *
+ * @param screenshotBase64 - Base64-encoded PNG screenshot taken from the test
+ * @param options - Optional comparison options (including optional imageName override)
  */
 export const compareWithFigma: BrowserCommand<[
-  testId: string,
-  imageName: string,
-  testPath: string,
-  options?: CompareWithFigmaOptions
-]> = async (context, testId, imageName, testPath, options = {}) => {
-  // Get the playwright locator and take a screenshot
-  const locator = context.iframe.locator(`[data-testid="${testId}"]`);
-  const screenshotBuffer = await locator.screenshot();
+  screenshotBase64: string,
+  options?: CompareWithFigmaOptions & { imageName?: string }
+]> = async (context, screenshotBase64, options = {}) => {
+  // Get testPath and testName from context
+  const testPath = context.testPath;
+  const testName = context.task?.name;
+
+  // Read global options from vitest config (browser.compareWithFigmaOptions)
+  const browserConfig = (context.project?.config?.browser ?? {}) as Record<string, unknown>;
+  const globalOptions = (browserConfig.compareWithFigmaOptions ?? {}) as CompareWithFigmaOptions;
+
+  // Decode the base64 screenshot passed from the test
+  const screenshotBuffer = Buffer.from(screenshotBase64, 'base64');
 
   // Resolve testPath relative to project root (process.cwd())
   const absoluteTestPath = path.isAbsolute(testPath) ? testPath : path.join(process.cwd(), testPath);
   const testDir = path.dirname(absoluteTestPath);
   const specName = path.basename(absoluteTestPath);
+
+  // Use provided imageName or derive from test name
+  if (!options.imageName && !testName) {
+    return {
+      matches: false,
+      diffPercentage: 100,
+      sizeMismatch: false,
+      message: 'MISSING TEST NAME: context.task is undefined. Provide imageName in options.',
+    };
+  }
+  const imageName = options.imageName ?? `${testName}.png`;
+
+  // Merge options: per-call options > global config > defaults
   const {
-    threshold = 0.1,
-    maxDiffPercentage = 1.0,
-    sizeTolerance = 2,
+    threshold = globalOptions.threshold ?? 0.1,
+    maxDiffPercentage = globalOptions.maxDiffPercentage ?? 1.0,
+    sizeTolerance = globalOptions.sizeTolerance ?? 2,
   } = options;
 
   // Reference image path: __screenshots__/{spec-name}/{imageName}

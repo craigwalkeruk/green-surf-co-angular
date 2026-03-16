@@ -91,19 +91,22 @@
 
 .gsc-button--small {
   padding: 6px 14px;
-  font-size: 14px;
-  line-height: 20px;
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 500;
 }
 
 .gsc-button--medium {
-  padding: 8px 17px;
-  font-size: 17px;
-  line-height: 22px;
+  padding: 8px 20px;
+  font-size: 15px;
+  line-height: 21px;
+  font-weight: 100;
 }
 
 .gsc-button--large {
-  padding: 11px 28px;
+  padding: 10px 26px;
   font-size: 17px;
-  line-height: 28px;
+  line-height: 27px;
+  font-weight: 500;
   border-radius: var(--border-radius-lg);
 }

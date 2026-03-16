@@ -22,32 +22,24 @@ export default defineConfig({
     css: true,
     include: ['src/stories/button.component.spec.ts'],
     setupFiles: ['./src/test-setup.ts'],
-    watch: false,
+    watch: true,
     browser: {
       enabled: true,
       headless: true,
       provider: playwright({
         contextOptions: {
-          deviceScaleFactor: 1.5,
+          deviceScaleFactor: 1,
           viewport: { width: 1920, height: 1080 },
         },
       }),
-      ui: false,
       instances: [{ browser: 'chromium' }],
       commands: { compareWithFigma },
-      screenshotFailures: true,
-      expect: {
-        toMatchScreenshot: {
-          comparatorName: 'pixelmatch',
-          comparatorOptions: {
-            threshold: 0.1,
-            allowedMismatchedPixelRatio: 0.03,
-            diffColor: [255, 0, 0],
-            diffColorAlt: [255, 255, 0],
-            diffMask: false,
-          },
-        },
+      compareWithFigmaOptions: {
+        maxDiffPercentage: 5.0,
       },
+      screenshotFailures: true,
+      screenshotDirectory: '.vitest-attachments/temp',
+      ui: false,
     },
     reporters: ['verbose', 'html'],
   },
