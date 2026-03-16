@@ -14,7 +14,7 @@ import { ChangeDetectionStrategy, Component, computed, input, output } from '@an
 })
 export class ButtonComponent {
   // Six color variants per Figma Color Frame Default row: primary, secondary, error, warning, info, success
-  variant = input<'primary' | 'secondary' | 'error' | 'warning' | 'info' | 'success'>('secondary');
+  variant = input<'primary' | 'secondary' | 'error' | 'warning' | 'info' | 'success'>('primary');
   size = input<'small' | 'medium' | 'large'>('medium');
   label = input.required<string>();
   disabled = input<boolean>(false);

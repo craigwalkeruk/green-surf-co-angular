@@ -26,7 +26,7 @@
 .gsc-button--primary {
   background-color: var(--color-primary-500);
   color: white;
-  box-shadow: 0px 2px 6px 0px rgba(115, 103, 240, 0.3);
+  /*box-shadow: var(--shadow-md);*/
 }
 
 .gsc-button--primary:hover:not(:disabled) {
@@ -96,9 +96,9 @@
 }
 
 .gsc-button--medium {
-  padding: 8px 19px;
+  padding: 8px 17px;
   font-size: 17px;
-  line-height: 24px;
+  line-height: 22px;
 }
 
 .gsc-button--large {
