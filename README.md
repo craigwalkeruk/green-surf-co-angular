@@ -1,6 +1,24 @@
 # GreenSurfCo
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.1.
+An experimental testing repository exploring visual regression testing with Figma-exported design assets.
+
+## About This Project
+
+This is a proof-of-concept for comparing Angular component renders against Figma designs. Currently, the workflow involves manually exporting images from Figma for visual comparison.
+
+### Current State
+
+- Manual export of design images from Figma
+- Visual regression tests compare rendered components against exported Figma assets
+
+### Future Roadmap
+
+- **Figma Connect Integration**: Link all components to their corresponding Figma designs
+- **Automated Export**: Automate design asset export when syncing with new designs
+- **Change Detection**: Investigate using Figma's "Ready for Dev" status to identify new designs available for sync
+- **Version Tracking**: Determine how to detect if a design has changed since last download
+
+---
 
 ## Development server
 
