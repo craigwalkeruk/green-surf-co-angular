@@ -1,7 +1,7 @@
 import { defineConfig } from 'vitest/config';
 import { playwright } from '@vitest/browser-playwright';
 import angular from '@analogjs/vite-plugin-angular';
-import { compareWithFigma } from './vitest.commands';
+import { compareWithFigma } from './src/test/vitest.commands';
 
 export default defineConfig({
   plugins: [angular()],

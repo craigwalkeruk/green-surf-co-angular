@@ -1,19 +1,26 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import pixelmatch from 'pixelmatch';
+// @ts-expect-error - pngjs has no type declarations
 import { PNG } from 'pngjs';
-import type { BrowserCommand } from 'vitest/node';
+import type { BrowserCommand, BrowserCommandContext } from 'vitest/node';
 
+/** Options for configuring the Figma comparison behavior */
 export interface CompareWithFigmaOptions {
   threshold?: number;
   maxDiffPercentage?: number;
   sizeTolerance?: number; // Allow small size differences (default: 2px)
 }
 
+/** Result returned from the Figma comparison command */
 export interface CompareWithFigmaResult {
+  /** Whether the images match within the configured threshold */
   matches: boolean;
+  /** Percentage of pixels that differ between images */
   diffPercentage: number;
+  /** Whether there was a size mismatch beyond tolerance */
   sizeMismatch: boolean;
+  /** Human-readable message describing the result */
   message: string;
 }
 
@@ -32,12 +39,12 @@ export const compareWithFigma: BrowserCommand<[
   options?: CompareWithFigmaOptions & { imageName?: string }
 ]> = async (context, screenshotBase64, options = {}) => {
   // Get testPath and testName from context
-  const testPath = context.testPath;
-  const testName = context.task?.name;
+  const testPath = context.testPath ?? '';
+  const testName = (context as BrowserCommandContext & { task?: { name?: string } }).task?.name;
 
   // Read global options from vitest config (browser.compareWithFigmaOptions)
-  const browserConfig = (context.project?.config?.browser ?? {}) as Record<string, unknown>;
-  const globalOptions = (browserConfig.compareWithFigmaOptions ?? {}) as CompareWithFigmaOptions;
+  const browserConfig = context.project?.config?.browser as unknown as Record<string, unknown> | undefined;
+  const globalOptions = (browserConfig?.['compareWithFigmaOptions'] ?? {}) as CompareWithFigmaOptions;
 
   // Decode the base64 screenshot passed from the test
   const screenshotBuffer = Buffer.from(screenshotBase64, 'base64');
