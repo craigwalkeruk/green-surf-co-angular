@@ -2,6 +2,7 @@ import { defineConfig } from 'vitest/config';
 import { playwright } from '@vitest/browser-playwright';
 import angular from '@analogjs/vite-plugin-angular';
 import { compareWithFigma } from './src/test/vitest.commands';
+import VrtReporter from './src/test/generate-vrt-report';
 
 export default defineConfig({
   plugins: [angular()],
@@ -26,7 +27,7 @@ export default defineConfig({
     browser: {
       enabled: true,
       provider: playwright(),
-      instances: [{ browser: 'chromium' }],
+      instances: [{ browser: 'chromium', headless: true }],
       commands: { compareWithFigma },
       compareWithFigmaOptions: {
         maxDiffPercentage: 5.0,
@@ -34,6 +35,7 @@ export default defineConfig({
       screenshotFailures: false,
       screenshotDirectory: '.vitest-attachments/temp',
     },
-    reporters: ['verbose'],
+    // Use verbose reporter + custom VRT reporter that auto-generates HTML report
+    reporters: ['verbose', new VrtReporter()],
   },
 });

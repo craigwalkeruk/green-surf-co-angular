@@ -3,6 +3,13 @@ import { TestBed } from '@angular/core/testing';
 import { page } from 'vitest/browser';
 import { ButtonComponent } from './button.component';
 
+// wait for fonts to load
+await document.fonts.ready
+
+const isMacRetina = navigator.platform.toLowerCase().includes('mac');
+document.body.style.transformOrigin = 'top left';
+document.body.style.transform = isMacRetina ? `scale(2.6)` : `scale(${window.devicePixelRatio})`;
+
 // This test uses a screenshot exported from Figma as a golden source of truth; it is not a snapshot of the previous run
 it('ButtonComponent-btn-primary', async () => {
   const fixture = TestBed.createComponent(ButtonComponent);
@@ -12,12 +19,12 @@ it('ButtonComponent-btn-primary', async () => {
   // Create a container with padding to capture the box-shadow
   const container = document.createElement('div');
   container.setAttribute('data-testid', 'screenshot-container-md');
-  // Figma 1x export size 88 x 38
+
   container.style.width = '88px';
-  container.style.height = '38px';
 
   container.appendChild(fixture.nativeElement);
   document.body.appendChild(container);
+
 
   fixture.detectChanges();
 
@@ -39,7 +46,6 @@ it('ButtonComponent-btn-primary-lg', async () => {
   const container = document.createElement('div');
   container.setAttribute('data-testid', 'screenshot-container-lg');
   container.style.width = '106px';
-  container.style.height = '48px';
 
   container.appendChild(fixture.nativeElement);
   document.body.appendChild(container);

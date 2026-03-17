@@ -49,6 +49,6 @@ documentation.json
 storybook-static
 /temp/
 /.vitest-attachments/
+/.vitest-attachments
 /html/
 /html
-/.vitest-attachments

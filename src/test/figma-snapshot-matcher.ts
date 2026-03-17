@@ -20,10 +20,15 @@ export interface ToMatchFigmaSnapshotOptions extends CompareWithFigmaOptions {
 /**
  * Custom Vitest matcher for comparing screenshots against Figma reference images.
  *
+ * This matcher:
+ * 1. Takes a screenshot of the provided element/locator
+ * 2. Compares against a Figma-exported reference image
+ * 3. Generates diff images in .vitest-attachments/ for inspection
+ *
  * Key behaviors:
  * - Never creates/updates baseline files - fails if reference is missing
  * - References stored in `__screenshots__/{spec-name}/{imageName}`
- * - Diffs output to `.vitest-attachments/`
+ * - Use `npm run test-vrt:report` to generate an interactive HTML report
  */
 async function toMatchFigmaSnapshot(
   this: ReturnType<typeof expect.getState>,
@@ -46,6 +51,7 @@ async function toMatchFigmaSnapshot(
     };
   }
 
+  // Run the comparison
   const result = (await commands.compareWithFigma(base64, options)) as CompareWithFigmaResult;
 
   return {

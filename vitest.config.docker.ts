@@ -1,7 +1,8 @@
 import { defineConfig } from 'vitest/config';
 import { playwright } from '@vitest/browser-playwright';
 import angular from '@analogjs/vite-plugin-angular';
-import { compareWithFigma } from './vitest.commands';
+import { compareWithFigma } from './src/test/vitest.commands';
+import VrtReporter from './src/test/generate-vrt-report';
 
 export default defineConfig({
   plugins: [angular()],
@@ -22,25 +23,24 @@ export default defineConfig({
     css: true,
     include: ['src/stories/button.component.spec.ts'],
     setupFiles: ['./src/test-setup.ts'],
-    watch: true,
+    watch: false, // No watch in Docker/CI
     browser: {
       enabled: true,
-      headless: true,
       provider: playwright({
         contextOptions: {
           deviceScaleFactor: 1,
           viewport: { width: 1920, height: 1080 },
         },
       }),
-      instances: [{ browser: 'chromium' }],
+      instances: [{ browser: 'chromium', headless: true }],
       commands: { compareWithFigma },
       compareWithFigmaOptions: {
         maxDiffPercentage: 5.0,
       },
-      screenshotFailures: true,
+      screenshotFailures: false,
       screenshotDirectory: '.vitest-attachments/temp',
-      ui: false,
     },
-    reporters: ['verbose', 'html'],
+    // Use verbose reporter + custom VRT reporter that auto-generates HTML report
+    reporters: ['verbose', new VrtReporter()],
   },
 });

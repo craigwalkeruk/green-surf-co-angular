@@ -29,7 +29,7 @@ export interface CompareWithFigmaResult {
  * - Never creates/updates baseline files - fails if reference is missing
  * - Handles size mismatches by padding and still generating diff
  * - Always logs diff percentage and generates diff image
- * - Outputs diffs to .vitest-attachment directory
+ * - Outputs diffs to .vitest-attachments directory
  *
  * @param screenshotBase64 - Base64-encoded PNG screenshot taken from the test
  * @param options - Optional comparison options (including optional imageName override)
@@ -181,11 +181,29 @@ export const compareWithFigma: BrowserCommand<[
   );
 
   // Always save diff image (even on pass)
-  await fs.writeFile(diffPath, PNG.sync.write(diff));
+  const diffBuffer = PNG.sync.write(diff);
+  await fs.writeFile(diffPath, diffBuffer);
 
   const totalPixels = width * height;
   const diffPercentage = (numDiffPixels / totalPixels) * 100;
   const matches = !sizeMismatch && diffPercentage <= maxDiffPercentage;
+
+  // Save error message to JSON for the VRT report
+  const errorMessage = sizeMismatch
+    ? `Size mismatch and ${diffPercentage.toFixed(2)}% pixel difference`
+    : !matches
+      ? `Image differs by ${diffPercentage.toFixed(2)}% (threshold: ${maxDiffPercentage}%)`
+      : null;
+
+  const metadataPath = path.join(attachmentDir, `${baseName}-metadata.json`);
+  await fs.writeFile(metadataPath, JSON.stringify({
+    matches,
+    diffPercentage,
+    sizeMismatch,
+    errorMessage,
+    baselineSize: { width: baseline.width, height: baseline.height },
+    screenshotSize: { width: screenshot.width, height: screenshot.height },
+  }, null, 2));
 
   // Always log diff percentage
   console.log(
